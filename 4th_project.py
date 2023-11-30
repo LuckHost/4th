@@ -1,15 +1,18 @@
+""" 4я работа по ввпд СФУ вариант 6
+Выполнил Ходыкин Александр КИ23-17/2б"""
+
 from tkinter import *
 from tkinter import ttk
 from PIL import *
-from PIL import ImageTk
 
 class App():
     def __init__(self, master):
+        """ creating buttons and canvas """
         frm = ttk.Frame(master, padding =10)
         frm.pack()
         
         self.canvas = Canvas(width = 300, height = 300, bg = 'blue')
-        
+
         self.but = Button(master, text="Сброс", command=self.get_image)
         self.but2 = Button(master, text="Изменить цвет", command=self.change_color)
         self.chkbox_var = BooleanVar()
@@ -22,10 +25,13 @@ class App():
         self.canvas.pack()
         
     def get_image(self):
+        """ creating and adding an image
+        """
         self.background_image = PhotoImage(file="bg.png")
         self.image_id = self.canvas.create_image(0, 0, image = self.background_image, anchor = "nw")
-        
-    def change_color(self, operation = "down"):
+
+    def change_color(self):
+        """ color changing """
         self.image = PhotoImage(width=300, height=300)
         for x in range(300):
             for y in range(300):
@@ -39,10 +45,8 @@ class App():
                             rgb[i] = 255
                 
                 self.image.put("#%02x%02x%02x" % tuple(rgb), (x, y))        
-        
         self.background_image = self.image
         self.canvas.itemconfig(self.image_id, image = self.background_image)
-        
 
 def main():
     """main function"""
@@ -50,7 +54,6 @@ def main():
     root.geometry("300x300")
     App(root)
     root.mainloop()
-    #frm = ttk.Frame(root, padding=10)
-    
+
 if __name__ == "__main__":
     main()
